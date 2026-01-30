@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BMI Calculator</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card {
+        background: white;
+        width: 330px;
+        padding: 25px;
+        border-radius: 15px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+
+    .gender {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+
+    }
+
+    .gender-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: normal;
+    cursor: pointer;
+
+    }
+
+    .height {
+        display: flex;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        background: #0e0d0d;
+        color: white;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .result {
+        margin-top: 15px;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Calculate Body Mass Index</h2>
+
+    <label>Age</label>
+    <input type="number" id="age">
+    <label>Gender</label>
+    <div class="gender">
+    <label class="gender-option">
+        <input type="radio" name="gender" value="Male"> Male</label>
+    <label class="gender-option">
+        <input type="radio" name="gender" value="Female"> Female</label>
+    </div>
+
+
+    <label>Height</label>
+    <div class="height">
+        <input type="number" id="feet" placeholder="feet">
+        <input type="number" id="inches" placeholder="inches">
+    </div>
+
+    <label>Weight</label>
+    <input type="number" id="weight" placeholder="pounds">
+
+    <button onclick="calculateBMI()">Calculate Now</button>
+
+    <div class="result" id="result">
+        BMI: -- <br>
+        Status: --
+    </div>
+</div>
+
+<script>
+function calculateBMI() {
+    let feet = document.getElementById("feet").value;
+    let inches = document.getElementById("inches").value;
+    let weight = document.getElementById("weight").value;
+
+    if (feet === "" || inches === "" || weight === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    let totalInches = (feet * 12) + parseInt(inches);
+    let bmi = (weight / (totalInches * totalInches)) * 703;
+    bmi = bmi.toFixed(2);
+
+    let status = "";
+    if (bmi < 18.5) status = "Underweight";
+    else if (bmi < 25) status = "Normal";
+    else if (bmi < 30) status = "Overweight";
+    else status = "Obese";
+
+    document.getElementById("result").innerHTML =
+        "BMI: " + bmi + "<br>Status: " + status;
+}
+</script>
+
+</body>
+</html>
